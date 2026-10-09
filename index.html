@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Sang720 的项目与学习资料导航。">
+  <meta name="theme-color" content="#147765">
+  <title>知间 · Sang720 的学习导航</title>
+  <link rel="icon" href="assets/avatar.png">
+  <link rel="stylesheet" href="style.css">
+  <script defer src="assets/lucide.min.js"></script>
+  <script defer src="data.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <a class="skip" href="#main">跳转到内容</a>
+  <aside class="sidebar" aria-label="主导航">
+    <a class="brand" href="./"><span class="brand-mark"><i data-lucide="library"></i></span><span>知间<span class="brand-en">LEARNING HUB</span></span></a>
+    <div class="workspace"><span class="status-dot"></span>Sang720 的学习空间</div>
+    <nav class="main-nav">
+      <button data-view="all" class="nav-item active"><i data-lucide="layout-grid"></i>全部资料<span id="all-count">0</span></button>
+      <button data-view="favorites" class="nav-item"><i data-lucide="star"></i>我的收藏<span id="fav-count">0</span></button>
+      <button data-view="recent" class="nav-item"><i data-lucide="history"></i>最近访问</button>
+    </nav>
+    <div class="nav-label">资料分类</div>
+    <nav id="category-nav" aria-label="资料分类"></nav>
+    <div class="sidebar-bottom">
+      <a class="nav-item" href="https://github.com/Sang720/learning-hub" target="_blank" rel="noopener noreferrer"><i data-lucide="github"></i>网站仓库<i class="last" data-lucide="arrow-up-right"></i></a>
+      <a class="profile" href="https://github.com/Sang720" target="_blank" rel="noopener noreferrer"><img src="assets/avatar.png" alt="Sang720 的头像" width="34" height="34"><span><strong>Sang720</strong><small>保持好奇，持续探索</small></span><i data-lucide="arrow-up-right"></i></a>
+    </div>
+  </aside>
+  <div class="page">
+    <header class="topbar"><span class="breadcrumb">我的空间 <span>/</span> 资源库</span><div class="top-actions"><span class="local-label"><span class="status-dot"></span>本地资料库</span><button id="import" class="icon-button" title="导入资料" aria-label="导入资料"><i data-lucide="upload"></i></button><button id="export" class="icon-button" title="导出资料" aria-label="导出资料"><i data-lucide="download"></i></button></div></header>
+    <main id="main">
+      <section class="heading-row"><div><div class="eyebrow">SANG720 / COLLECTION</div><h1>项目与学习资料</h1><p class="intro">值得收藏的灵感，值得投入的学习。</p></div><button id="add" class="primary"><i data-lucide="plus"></i>添加资料</button></section>
+      <section class="overview" aria-label="资源统计"><div><span>资料总数</span><strong id="total-stat">0</strong><i data-lucide="layers"></i></div><div><span>主题分类</span><strong id="category-stat">0</strong><i data-lucide="folders"></i></div><div><span>已收藏</span><strong id="favorite-stat">0</strong><i data-lucide="bookmark"></i></div></section>
+      <section class="library" aria-label="资料库">
+        <div class="library-heading"><h2 id="view-title">全部资料</h2><span id="result-count"></span></div>
+        <div class="toolbar"><label class="search"><i data-lucide="search"></i><input id="search" type="search" placeholder="搜索名称、简介或标签" aria-label="搜索资料"></label><select id="sort" aria-label="资料排序"><option value="default">默认排序</option><option value="newest">最近添加</option><option value="name">名称排序</option></select><div class="view-switch" aria-label="显示方式"><button id="grid-view" class="icon-button selected" title="网格视图" aria-label="网格视图" aria-pressed="true"><i data-lucide="layout-grid"></i></button><button id="list-view" class="icon-button" title="列表视图" aria-label="列表视图" aria-pressed="false"><i data-lucide="list"></i></button></div></div>
+        <div id="chips" class="chips" aria-label="分类筛选"></div>
+        <div id="resources" class="resources"></div>
+        <div id="empty" class="empty" hidden><i data-lucide="inbox"></i><h3 id="empty-title">暂无资料</h3><button id="empty-action" class="secondary">添加资料</button></div>
+      </section>
+      <footer><span>知间 · 每一次积累，都有迹可循</span><a href="https://github.com/Sang720" target="_blank" rel="noopener noreferrer">Sang720 <i data-lucide="arrow-up-right"></i></a></footer>
+    </main>
+  </div>
+  <dialog id="editor"><form id="resource-form"><div class="dialog-heading"><h2 id="editor-title">添加资料</h2><button type="button" class="icon-button" data-close="editor" title="关闭" aria-label="关闭"><i data-lucide="x"></i></button></div><label>名称<input name="title" required maxlength="80" placeholder="例如：Python 学习笔记"></label><label>链接<input name="url" type="url" required placeholder="https://"></label><label>简介<textarea name="description" rows="3" maxlength="240" placeholder="这份资料的主要内容"></textarea></label><div class="form-row"><label>分类<input name="category" list="category-options" required maxlength="30" placeholder="选择或填写分类"><datalist id="category-options"></datalist></label><label>类型<select name="kind"><option>文档</option><option>项目</option><option>课程</option><option>工具</option><option>笔记</option></select></label></div><label>标签<input name="tags" maxlength="100" placeholder="用逗号分隔，例如：Python, 入门"></label><label class="checkbox-label"><input type="checkbox" name="favorite">加入收藏</label><p id="form-error" class="error" role="alert"></p><div class="dialog-footer"><button type="button" class="secondary" data-close="editor">取消</button><button class="primary" type="submit"><i data-lucide="check"></i>保存资料</button></div></form></dialog>
+  <dialog id="delete-dialog"><div class="dialog-heading"><h2>删除资料</h2><button class="icon-button" data-close="delete-dialog" title="关闭" aria-label="关闭"><i data-lucide="x"></i></button></div><p id="delete-description"></p><div class="dialog-footer"><button class="secondary" data-close="delete-dialog">取消</button><button id="confirm-delete" class="danger">删除</button></div></dialog>
+  <input id="import-file" type="file" accept="application/json,.json" hidden>
+  <div id="toast" class="toast" role="status" hidden></div>
+</body>
+</html>
